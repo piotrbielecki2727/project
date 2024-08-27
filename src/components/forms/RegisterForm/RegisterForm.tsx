@@ -6,13 +6,14 @@ import { z } from 'zod'
 import BasicFormField from '../components/BasicFormField'
 import Button from '@/components/ui/Button'
 import { Form } from '@/components/ui/Form'
-import { Input } from '@/components/ui/Input/base'
 import { formSchema } from './formSchema'
-import { User } from '@/lib/api/types'
+import { RegisterUserData } from '@/lib/api/types'
 import { defaultFormValues } from './constants'
+import { Input as ShadcnInput } from '@/components/ui/Input/base'
+import Input from '@/components/ui/Input'
 
 const RegisterForm = () => {
-  const form = useForm<User>({
+  const form = useForm<RegisterUserData>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultFormValues
   })
@@ -23,29 +24,58 @@ const RegisterForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className='space-y-8'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='b flex flex-col space-y-3'
+      >
         <BasicFormField
           label='Imię'
           control={control}
-          description='Podaj swoje imie'
           name='firstName'
-          render={field => <Input placeholder='shadcn' {...field} />}
+          render={field => <ShadcnInput placeholder='Imię...' {...field} />}
         />
         <BasicFormField
           label='Nazwisko'
           control={control}
-          description='Podaj swoje nazwisko'
           name='lastName'
-          render={field => <Input placeholder='shadcn' {...field} />}
+          render={field => <ShadcnInput placeholder='Nazwisko...' {...field} />}
         />
         <BasicFormField
           label='Email'
           control={control}
-          description='Podaj swoj email'
           name='email'
-          render={field => <Input placeholder='shadcn' {...field} />}
+          render={field => <ShadcnInput placeholder='Email...' {...field} />}
         />
-        <Button type='submit'>Submit</Button>
+        <BasicFormField
+          label='Hasło'
+          control={control}
+          name='password'
+          render={field => (
+            <ShadcnInput type='password' placeholder='Hasło...' {...field} />
+          )}
+        />
+        <BasicFormField
+          label='Powtórz hasło'
+          control={control}
+          name='repeatedPassword'
+          render={field => (
+            <ShadcnInput
+              type='password'
+              placeholder='Powtórz hasło...'
+              {...field}
+            />
+          )}
+        />
+        <Input showPasswordVisibilityButton />
+        <div className='flex items-center justify-center'>
+          <Button
+            className='w-[75%]'
+            additionalButtonVariant='sky'
+            type='submit'
+          >
+            Zarejestruj się
+          </Button>
+        </div>
       </form>
     </Form>
   )

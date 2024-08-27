@@ -1,7 +1,9 @@
-import { User } from '@/lib/api/types'
+import { RegisterUserData } from '@/lib/api/types'
 
-export const defaultFormValues: User = {
+export const defaultFormValues: RegisterUserData = {
   firstName: '',
   lastName: '',
-  email: ''
+  email: '',
+  password: '',
+  repeatedPassword: ''
 }
